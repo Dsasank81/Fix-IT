@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIX-IT - Your Roadside Assistance</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+    
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: auto;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+
+        video {
+            width:97%; 		hieght:75%;
+            margin: 20px; 
+            border: 2px solid #333; 
+            display: block; 
+        }
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #1e1e1e;
+            padding: 10px;
+        }
+
+        .navbar-button {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .navbar-button:hover {
+            background-color: #ff5500;
+        }
+
+        .popup-message {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px;
+            font-size: 18px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: popUp 2s ease-in-out forwards;
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: translateX(-50%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: translateX(-50%) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            background-color: #ff6600; 
+            color: #fff; 
+            padding: 5px 10px; 
+            display: inline-block; 
+        }
+
+        #results {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .mechanic {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FIX-IT</h1>
+        <p>Your Roadside Assistance</p>
+    </header>
+    <h2>Find Mechanics Near You</h2>
+    <p>Enter your current location:</p>
+    <input type="text" id="locationInput" placeholder="Enter your location">
+    <button onclick="findMechanics()">Find Mechanics</button>
+    <div id="results"></div>
+
+    <nav class="navbar">
+        <a href="book-mechanic.html" class="navbar-button">Book Mechanic</a>
+        <a href="services.html" class="navbar-button">Services</a>
+        <a href="careers.html" class="navbar-button">Careers</a>
+        <a href="contact-us.html" class="navbar-button">Contact Us</a>
+        <a href="download-app.html" class="navbar-button">Download App</a>
+    </nav>
+
+    
+    <main>
+            <div class=video><video autoplay muted loop>
+                <source src="car.mp4" type="video/mp4">
+            </video>
+</div>
+        <div class="popup-message">
+            Moving Mechanics, and The World
+        </div>
+    </main>
+
+    <script>
+        function findMechanics() {
+            // Simulate a list of mechanics within a 3 km radius
+            const mechanics = [
+                { name: 'Mechanic 1', distance: 2.5 },
+                { name: 'Mechanic 2', distance: 1.8 },
+                { name: 'Mechanic 3', distance: 3.2 },
+                // Add more mechanics as needed
+            ];
+
+            const location = document.getElementById('locationInput').value;
+            const resultsDiv = document.getElementById('results');
+
+            // Clear previous results
+            resultsDiv.innerHTML = '';
+
+            // Iterate through the list of mechanics and display those within 3 km
+            mechanics.forEach(mechanic => {
+                if (mechanic.distance <= 3) {
+                    const mechanicDiv = document.createElement('div');
+                    mechanicDiv.classList.add('mechanic');
+                    mechanicDiv.innerHTML = `<strong>${mechanic.name}</strong> (Distance: ${mechanic.distance} km)`;
+                    resultsDiv.appendChild(mechanicDiv);
+                }
+            });
+
+            // If no mechanics are found, display a message
+            if (resultsDiv.children.length === 0) {
+                resultsDiv.innerHTML = 'No mechanics found within 3 km.';
+            }
+        }
+    </script>
+</body>
+</html>
